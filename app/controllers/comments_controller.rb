@@ -5,6 +5,8 @@ class CommentsController < ApplicationController
   def index
     if params[:url].blank?
       @comments = Comment.all
+    elsif params[:url].class == String
+      @comments = Comment.find(:all, :conditions => ["url = ?", params[:url]])
     else
       @comments = Comment.find(:all, :conditions => ["url = ?", params[:url].join("/")])
     end
