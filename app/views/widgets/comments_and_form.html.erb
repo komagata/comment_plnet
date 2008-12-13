@@ -44,7 +44,7 @@ function callback(comments) {
   append(comment_plnet, [h3({}, 'コメント'), cms])
 
   // form
-  var f = form({'method':'post','action':'http://dev:3001/comments'}, [
+  var f = form({'method':'post','action':'<%= comments_url %>'}, [
     input({'type':'hidden','id':'comment_url','name':'comment[url]','value':location.href}),
     p({}, [
       label({'class':'label','for':'name'},'名前'), br(),
