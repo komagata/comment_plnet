@@ -28,6 +28,8 @@ for (var t in tags) {
   eval("function "+tags[t]+"(opts, value){return tag('"+tags[t]+"', opts, value)}")
 }
 
+var comment_plnet = $('comment-plnet')
+
 function callback(comments) {
   var cms = div({'class':'comments'})
   for (var key in comments) {
@@ -38,7 +40,7 @@ function callback(comments) {
       div({'class':'created_at'}, comment['created_at'])
     ]))
   }
-  append($('comment-plnet'), [h3({}, 'コメント'), cms])
+  append(comment_plnet, [h3({}, 'コメント'), cms])
 }
 
 // form
@@ -58,4 +60,4 @@ var f = form({'method':'post','action':'<%= comments_url %>'}, [
   ]),
   p({}, input({'type':'submit','name':'commit','value':'コメントする'}))
 ])
-append($('comment_plnet'), f)
+append(comment_plnet, f)
