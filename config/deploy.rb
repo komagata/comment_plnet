@@ -1,5 +1,5 @@
 set :application, "comment_plnet"
-set :repository,  "git@github.com:komagata/comment_plnet.git"
+set :repository,  "git://github.com/komagata/comment_plnet.git"
 set :use_sudo, false
 
 # If you aren't deploying to /u/apps/#{application} on the target
