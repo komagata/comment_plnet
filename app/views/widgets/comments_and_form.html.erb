@@ -29,9 +29,6 @@ for (var t in tags) {
 }
 
 function callback(comments) {
-  var comment_plnet = $('comment-plnet')
-
-  // comments
   var cms = div({'class':'comments'})
   for (var key in comments) {
     var comment = comments[key]['comment']
@@ -41,24 +38,24 @@ function callback(comments) {
       div({'class':'created_at'}, comment['created_at'])
     ]))
   }
-  append(comment_plnet, [h3({}, 'コメント'), cms])
-
-  // form
-  var f = form({'method':'post','action':'<%= comments_url %>'}, [
-    input({'type':'hidden','id':'comment_url','name':'comment[url]','value':location.href}),
-    p({}, [
-      label({'class':'label','for':'name'},'名前'), br(),
-      input({'type':'text','class':'text_field','id':'comment_name','name':'comment[name]'})
-    ]),
-    p({}, [
-      label({'class':'label','for':'link'},'リンク'), br(),
-      input({'type':'text','class':'text_field','id':'comment_link','name':'comment[link]'})
-    ]),
-    p({}, [
-      label({'class':'label','for':'body'},'本文'), br(),
-      textarea({'class':'text_area','id':'comment_body','name':'comment[body]'})
-    ]),
-    p({}, input({'type':'submit','name':'commit','value':'コメントする'}))
-  ])
-  append(comment_plnet, f)
+  append($('comment-plnet'), [h3({}, 'コメント'), cms])
 }
+
+// form
+var f = form({'method':'post','action':'<%= comments_url %>'}, [
+  input({'type':'hidden','id':'comment_url','name':'comment[url]','value':location.href}),
+  p({}, [
+    label({'class':'label','for':'name'},'名前'), br(),
+    input({'type':'text','class':'text_field','id':'comment_name','name':'comment[name]'})
+  ]),
+  p({}, [
+    label({'class':'label','for':'link'},'リンク'), br(),
+    input({'type':'text','class':'text_field','id':'comment_link','name':'comment[link]'})
+  ]),
+  p({}, [
+    label({'class':'label','for':'body'},'本文'), br(),
+    textarea({'class':'text_area','id':'comment_body','name':'comment[body]'})
+  ]),
+  p({}, input({'type':'submit','name':'commit','value':'コメントする'}))
+])
+append(comment_plnet, f)
