@@ -1,0 +1,64 @@
+function $(name) {return document.getElementById(name)}
+function append(elem, value) {
+  if (typeof value == 'string') {
+    elem.innerHTML = value.replace(/\r\n/g, "\n").replace(/\n/g, '<br />')
+  } else if (typeof value == 'undefined') {
+  } else if (value.constructor == Array) {
+    for (var v in value) {arguments.callee(elem, value[v])}
+  } else {
+    elem.appendChild(value)
+  }
+  return elem
+}
+
+function tag(name, opts, value) {
+  var opts = opts || {}
+  var elem = document.createElement(name)
+  for (key in opts) {
+    if (key == 'class') {
+      elem['className'] = opts[key]
+    } else {
+      elem[key] = opts[key]
+    }
+  }
+  return append(elem, value)
+}
+var tags = ['div','span','a','h1','h2','h3','p','br','form','label','input','textarea']
+for (var t in tags) {
+  eval("function "+tags[t]+"(opts, value){return tag('"+tags[t]+"', opts, value)}")
+}
+
+function callback(comments) {
+  var comment_plnet = $('comment-plnet')
+
+  // comments
+  var cms = div({'class':'comments'})
+  for (var key in comments) {
+    var comment = comments[key]['comment']
+    append(cms, div({'class':'comment'}, [
+      div({'class':'body'}, comment['body']),
+      div({'class':'name'}, a({'href':comment['link']}, comment['name'])),
+      div({'class':'created_at'}, comment['created_at'])
+    ]))
+  }
+  append(comment_plnet, [h3({}, 'コメント'), cms])
+
+  // form
+  var f = form({'method':'post','action':'http://dev:3001/comments'}, [
+    input({'type':'hidden','id':'comment_url','name':'comment[url]','value':location.href}),
+    p({}, [
+      label({'class':'label','for':'name'},'名前'), br(),
+      input({'type':'text','class':'text_field','id':'comment_name','name':'comment[name]'})
+    ]),
+    p({}, [
+      label({'class':'label','for':'link'},'リンク'), br(),
+      input({'type':'text','class':'text_field','id':'comment_link','name':'comment[link]'})
+    ]),
+    p({}, [
+      label({'class':'label','for':'body'},'本文'), br(),
+      textarea({'class':'text_area','id':'comment_body','name':'comment[body]'})
+    ]),
+    p({}, input({'type':'submit','name':'commit','value':'コメントする'}))
+  ])
+  append(comment_plnet, f)
+}
