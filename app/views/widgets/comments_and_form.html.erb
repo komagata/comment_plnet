@@ -58,4 +58,4 @@ var f = form({'method':'post','action':'<%= comments_url %>'}, [
   ]),
   p({}, input({'type':'submit','name':'commit','value':'コメントする'}))
 ])
-append(comment_plnet, f)
+append($('comment_plnet'), f)
