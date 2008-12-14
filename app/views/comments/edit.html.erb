@@ -1,19 +1,20 @@
-<h1>Editing comments</h1>
+<h1>Editing comment</h1>
 
-<% form_for(@comments) do |f| %>
+<% form_for(@comment) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :url_id %><br />
-    <%= f.text_field :url_id %>
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
   </p>
+
   <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :url %><br />
-    <%= f.text_area :url %>
+    <%= f.label :link %><br />
+    <%= f.text_area :link %>
   </p>
   <p>
     <%= f.label :body %><br />
@@ -24,5 +25,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @comments %> |
+<%= link_to 'Show', @comment %> |
 <%= link_to 'Back', comments_path %>

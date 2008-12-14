@@ -34,8 +34,13 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "top", :action => "index"
+
   map.connect 'widgets/:action.js', :controller => "widgets"
+
+  map.connect 'comments.:format', :controller => "comments", :action => "index"
+
   map.comments_by_url 'comments/*url', :controller => "comments", :action => "index"
+  map.connect 'comments.:format/*url', :controller => "comments", :action => "index"
 
   # See how all your routes lay out with "rake routes"
 

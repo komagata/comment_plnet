@@ -1,19 +1,24 @@
 class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.xml
+  # GET /comments.atom
   # GET /comments.js
   def index
     if params[:url].blank?
       @comments = Comment.all
+      @title = "全てのコメント - Comment Plnet"
     elsif params[:url].class == String
       @comments = Comment.find(:all, :conditions => ["url = ?", params[:url]])
+      @title = "#{params[:url]}のコメント - Comment Plnet"
     else
       @comments = Comment.find(:all, :conditions => ["url = ?", params[:url].join("/")])
+      @title = "#{params[:url].join("/")}のコメント - Comment Plnet"
     end
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @comments }
+      format.atom { render :layout => false }
       format.js   { render :json => @comments.to_json, :callback => params[:callback] }
     end
   end
