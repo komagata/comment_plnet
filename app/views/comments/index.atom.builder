@@ -9,7 +9,7 @@ atom_feed(
   @comments.each do |c|
     feed.entry(c) do |entry|
       entry.title("#{c.name}のコメント")
-      entry.content(textilize(c.body), :type => "html")
+      entry.content(c.body, :type => "html")
       entry.author do |a|
         a.name(c.name)
       end
